@@ -38,7 +38,7 @@ public class InterfaceStatisticsFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         System.out.println("我是过滤器的执行方法，客户端向Servlet发送的请求被我拦截到了");
         HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
-        //访问ip（网上考的 不知道通过网关是不是还好用）
+        //访问ip（网上copy的 不知道通过网关是不是还好用）
         String ipAddress;
         try {
             ipAddress = httpRequest.getHeader("x-forwarded-for");

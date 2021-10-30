@@ -28,9 +28,14 @@ class DroolsDemoApplicationTests2 {
     public void test1(){
         //构造订单对象，设置原始价格，由规则引擎根据优惠规则计算优惠后的价格
         Order order = new Order();
-        order.setOriginalPrice(300D);
+        order.setOriginalPrice(59D);
         //将数据提供给规则引擎，规则引擎会根据提供的数据进行规则匹配
-        session.insert(order);
+        Order order1 = new Order();
+        order1.setOriginalPrice(59D);
+        List<Order> orderList = new ArrayList<>();
+        orderList.add(order);
+        orderList.add(order1);
+        session.insert(orderList);
         //激活规则引擎，如果规则匹配成功则执行规则
         session.fireAllRules();
         //关闭会话
@@ -99,4 +104,5 @@ class DroolsDemoApplicationTests2 {
         //关闭会话
         session.dispose();
     }
+
 }

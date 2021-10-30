@@ -2,11 +2,14 @@
 package book.discount
 import com.jsh.droolsdemo.entity.Order
 import com.jsh.droolsdemo.entity.Cat
+import java.util.List
 
 //规则一：所购图书总价在100元以下的没有优惠
 rule "book_discount_1"
+agenda-group "001"
     when
-        $order:Order(originalPrice < 100)
+        $list: List()
+        $order:Order(originalPrice < 100) from $list
     then
         $order.setRealPrice($order.getOriginalPrice());
         System.out.println("成功匹配到规则一：所购图书总价在100元以下的没有优惠");
@@ -32,10 +35,12 @@ end
 
 //规则四：所购图书总价在300元以上的优惠100元
 rule "book_discount_4"
+agenda-group "001"
     when
-        $order:Order(originalPrice >= 300)
+        $list: List()
+        $order:Order(originalPrice < 100) from $list
     then
-        $order.setRealPrice($order.getOriginalPrice() - 100);
+        $order.setRealPrice($order.getOriginalPrice() - 10);
         System.out.println("成功匹配到规则四：所购图书总价在300元以上的优惠100元");
 end
 
