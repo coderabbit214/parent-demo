@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jsh.shiro.mapper.PermissionMapper">
+    <resultMap id="BaseResultMap" type="com.jsh.shiro.entity.Permission">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="expression" property="expression" jdbcType="VARCHAR"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from permission
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.jsh.shiro.entity.Permission" useGeneratedKeys="true" keyProperty="id">
+        insert into permission (name, expression)
+        values (#{name,jdbcType=VARCHAR}, #{expression,jdbcType=VARCHAR})
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.jsh.shiro.entity.Permission">
+        update permission
+        set name       = #{name,jdbcType=VARCHAR},
+            expression = #{expression,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select id, name, expression
+        from permission
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select id, name, expression
+        from permission
+    </select>
+    <select id="selectForList" resultType="com.jsh.shiro.entity.Permission">
+        select id, name, expression
+        from permission
+    </select>
+    <select id="selectByUserId" resultType="com.jsh.shiro.entity.Permission">
+        select p.*
+        from user_role er
+                 join role_permission rp on er.role_id = rp.role_id
+                 join permission p on rp.permission_id = p.id
+        where er.user_id = #{id}
+    </select>
+    <select id="selectByRoleId" resultType="com.jsh.shiro.entity.Permission">
+        select id, name, expression
+        from permission p,
+             role_permission r
+        where p.id = r.permission_id
+          and r.role_id = #{id}
+    </select>
+    <select id="getPermissionExpressionByUserId" resultType="java.lang.String">
+        SELECT p.expression
+        from permission p
+                 LEFT JOIN role_permission rp
+                           on p.id = rp.permission_id
+                 LEFT JOIN user_role er
+                           on er.role_id = rp.role_id
+        where er.user_id = #{id}
+    </select>
+
+</mapper>
