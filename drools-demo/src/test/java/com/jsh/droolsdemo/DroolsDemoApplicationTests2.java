@@ -14,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @SpringBootTest
 class DroolsDemoApplicationTests2 {
@@ -24,6 +26,8 @@ class DroolsDemoApplicationTests2 {
     @Autowired
     private KieBase kieBase;
 
+    private Map<String,String> map = new HashMap<>();
+
     @Test
     public void test1(){
         //构造订单对象，设置原始价格，由规则引擎根据优惠规则计算优惠后的价格
@@ -31,17 +35,19 @@ class DroolsDemoApplicationTests2 {
         order.setOriginalPrice(59D);
         //将数据提供给规则引擎，规则引擎会根据提供的数据进行规则匹配
         Order order1 = new Order();
-        order1.setOriginalPrice(59D);
-        List<Order> orderList = new ArrayList<>();
-        orderList.add(order);
-        orderList.add(order1);
-        session.insert(orderList);
+        order1.setOriginalPrice(91D);
+
+        session.insert(order);
+        session.fireAllRules();
+        session.insert(order1);
         //激活规则引擎，如果规则匹配成功则执行规则
         session.fireAllRules();
         //关闭会话
         session.dispose();
         System.out.println("优惠前原始价格：" + order.getOriginalPrice() +
                 "，优惠后价格：" + order.getRealPrice());
+        System.out.println("优惠前原始价格：" + order1.getOriginalPrice() +
+                "，优惠后价格：" + order1.getRealPrice());
     }
 
     @Test
@@ -103,6 +109,10 @@ class DroolsDemoApplicationTests2 {
         session.fireAllRules();
         //关闭会话
         session.dispose();
+
+        for (String s : map.keySet()) {
+
+        }
     }
 
 }
