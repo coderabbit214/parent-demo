@@ -3,6 +3,7 @@ package com.jsh.droolsdemo;
 import com.jsh.droolsdemo.entity.Animal;
 import com.jsh.droolsdemo.entity.Cat;
 import com.jsh.droolsdemo.entity.Order;
+import com.jsh.droolsdemo.util.MessageList;
 import org.junit.jupiter.api.Test;
 import org.kie.api.KieBase;
 import org.kie.api.KieServices;
@@ -37,8 +38,10 @@ class DroolsDemoApplicationTests2 {
         Order order1 = new Order();
         order1.setOriginalPrice(91D);
 
+        MessageList.init();
+
         session.insert(order);
-        session.fireAllRules();
+//        session.fireAllRules();
         session.insert(order1);
         //激活规则引擎，如果规则匹配成功则执行规则
         session.fireAllRules();
@@ -48,6 +51,9 @@ class DroolsDemoApplicationTests2 {
                 "，优惠后价格：" + order.getRealPrice());
         System.out.println("优惠前原始价格：" + order1.getOriginalPrice() +
                 "，优惠后价格：" + order1.getRealPrice());
+        for (String s : MessageList.testList) {
+            System.out.println(s);
+        }
     }
 
     @Test

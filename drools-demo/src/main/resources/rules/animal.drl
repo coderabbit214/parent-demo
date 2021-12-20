@@ -2,30 +2,30 @@ package com.jsh.animal
 import com.jsh.droolsdemo.entity.Animal
 import com.jsh.droolsdemo.entity.Cat
 
-rule "from"
-when
-    $an : Animal()
-    $p : Cat(sex == 3) from $an.cats
-    then
-        System.out.println($p);
-    end
-
-
-rule "update"
-when
-    $an : Cat(sex == 0)
-    then
-        System.out.println($an);
-//        $an.setSex(1);
-//        update($an)
-        modify($an){
-            setSex(1)
-        }
-    end
-
-rule "update2"
-when
-    $an : Cat(sex == 1)
-    then
-        System.out.println($an);
-    end
+//rule "from"
+//when
+//    $an : Animal()
+//    $p : Cat(sex == 3) from $an.cats
+//    then
+//        System.out.println($p);
+//    end
+//
+//
+//rule "update"
+//when
+//    $an : Cat(sex == 0)
+//    then
+//        System.out.println($an);
+////        $an.setSex(1);
+////        update($an)
+//        modify($an){
+//            setSex(1)
+//        }
+//    end
+//
+//rule "update2"
+//when
+//    $an : Cat(sex == 1)
+//    then
+//        System.out.println($an);
+//    end
