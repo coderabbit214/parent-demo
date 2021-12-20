@@ -1,0 +1,16 @@
+package com.jsh.animal
+
+import com.jsh.droolsdemo.entity.Order
+import com.jsh.droolsdemo.util.MessageList
+
+//添加方法
+function void setString(String s) {
+    MessageList.add(s);
+}
+
+rule "num"
+    when
+        $order:Order(originalPrice < 100)
+    then
+        setString($order.getOriginalPrice().toString());
+end
