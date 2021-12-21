@@ -45,6 +45,6 @@ public class LoginAuthenticationSuccessHandler implements AuthenticationSuccessH
      * 渲染返回 token 数据,因为前端页面接收的都是Result对象，故使用application/json返回
      */
     public void renderToken(HttpServletResponse response, LoginToken token) throws IOException {
-        ResponseUtils.result(response, Result.ok().msg("登录成功！"));
+        ResponseUtils.result(response, Result.ok().msg("登录成功！").data(token));
     }
 }

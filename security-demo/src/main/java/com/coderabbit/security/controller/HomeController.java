@@ -49,7 +49,7 @@ public class HomeController {
         return Result.ok().data(loginToken);
     }
 
-//    @PostMapping("/login2")
+    @PostMapping("/login2")
     public Result login(String username,String password){
         // 生成一个包含账号密码的认证信息
         Authentication token = new UsernamePasswordAuthenticationToken(username, password);

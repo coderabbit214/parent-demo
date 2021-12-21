@@ -20,7 +20,7 @@ public class HelloController {
     @Autowired
     private UserRepository userRepository;
 
-    @RequestMapping
+    @RequestMapping("/test")
     public String hello() throws JsonProcessingException {
         List<User> all = userRepository.findAll();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
