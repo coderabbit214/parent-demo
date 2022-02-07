@@ -1,0 +1,11 @@
+version: '3.9'
+
+services:
+  demo:
+    build: .
+    depends_on:
+      - redis
+    ports:
+      - "8080:8080"
+  redis:
+    image: "library/redis:alpine"
