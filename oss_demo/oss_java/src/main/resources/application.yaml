@@ -1,0 +1,34 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: ossTest
+
+
+oss:
+  # 使用oss的模式
+  # 1. ALIYUN
+  # 2. MINIO
+  mode: ALIYUN
+  # 上传目录，这里如果不想加，别的地方到处加
+  dir: test/
+  # 上传url过期时间 单位 s
+  updateExpiryTime: 600
+  # 查看过期时间 单位 s
+  downloadExpiryTime: 600
+  #阿里oss配置
+  aliyun:
+    endpoint:
+    keyid:
+    keysecret:
+    bucketname:
+  minio:
+    endpoint:
+    keyid:
+    keysecret:
+    bucketName:
+
+
+
+
