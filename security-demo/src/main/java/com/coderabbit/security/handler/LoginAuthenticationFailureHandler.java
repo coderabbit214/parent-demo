@@ -31,11 +31,10 @@ public class LoginAuthenticationFailureHandler implements AuthenticationFailureH
                                         HttpServletResponse response,
                                         AuthenticationException exception) throws IOException {
 
-        //TODO 根据项目需要返回指定异常提示，陈某这里演示了一个用户名密码错误的异常
-        //BadCredentialsException 这个异常一般是用户名或者密码错误
         if (exception instanceof BadCredentialsException){
             ResponseUtils.result(response, Result.ok().msg("用户名或密码不正确！"));
         }
+
         ResponseUtils.result(response,Result.ok().msg("登录失败！"));
     }
 }

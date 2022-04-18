@@ -1,6 +1,5 @@
 package com.coderabbit.security.handler;
 
-
 import com.coderabbit.security.result.Result;
 import com.coderabbit.security.utils.ResponseUtils;
 import org.springframework.security.access.AccessDeniedException;

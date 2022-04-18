@@ -33,7 +33,6 @@ public class LoginAuthenticationSuccessHandler implements AuthenticationSuccessH
                                         Authentication authentication) throws IOException {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        //TODO 根据业务需要进行处理，陈某这里只返回两个token
         //生成令牌
         String accessToken = jwtTokenUtil.createToken(userDetails.getUsername());
         //生成刷新令牌，如果accessToken令牌失效，则使用refreshToken重新获取令牌（refreshToken过期时间必须大于accessToken）

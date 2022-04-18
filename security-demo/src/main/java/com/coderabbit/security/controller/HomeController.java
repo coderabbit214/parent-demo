@@ -27,6 +27,8 @@ public class HomeController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private JwtUtils jwtTokenUtil;
 
     /**
      * 刷新令牌
@@ -48,17 +50,5 @@ public class HomeController {
         LoginToken loginToken = new LoginToken(newAccessToken,newRefreshToken);
         return Result.ok().data(loginToken);
     }
-
-    @PostMapping("/login2")
-    public Result login(String username,String password){
-        // 生成一个包含账号密码的认证信息
-        Authentication token = new UsernamePasswordAuthenticationToken(username, password);
-        // AuthenticationManager校验这个认证信息，返回一个已认证的Authentication
-        Authentication authentication = authenticationManager.authenticate(token);
-        // 将返回的Authentication存到上下文中
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        return Result.ok();
-    }
-
 
 }

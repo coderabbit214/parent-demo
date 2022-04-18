@@ -21,6 +21,6 @@ public class EntryPointUnauthorizedHandler implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
-        ResponseUtils.result(response, Result.ok().msg("无权限！"));
+        ResponseUtils.result(response, Result.ok().msg("请先登录！"));
     }
 }

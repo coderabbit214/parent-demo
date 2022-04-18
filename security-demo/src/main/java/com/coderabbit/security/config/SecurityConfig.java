@@ -1,6 +1,5 @@
 package com.coderabbit.security.config;
 
-
 import com.coderabbit.security.filter.TokenAuthenticationFilter;
 import com.coderabbit.security.handler.EntryPointUnauthorizedHandler;
 import com.coderabbit.security.handler.MyPasswordEncoder;
@@ -8,15 +7,12 @@ import com.coderabbit.security.handler.RequestAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -45,14 +41,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // 这里需要将登录页面放行,permitAll()表示不再拦截，/login 登录的url，/refreshToken刷新token的url
                 //TODO 此处正常项目中放行的url还有很多，比如swagger相关的url，druid的后台url，一些静态资源
-                .antMatchers("/login", "/refreshToken","/login2")
+                .antMatchers("/login", "/refreshToken")
                 .permitAll()
-                //hasRole()表示需要指定的角色才能访问资源
-                .antMatchers("/hello").hasRole("admin")
                 // anyRequest() 所有请求   authenticated() 必须被认证
                 .anyRequest()
                 .authenticated()
-
                 //处理异常情况：认证失败和权限不足
                 .and()
                 .exceptionHandling()
@@ -60,11 +53,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(entryPointUnauthorizedHandler)
                 //认证通过，但是没权限处理器
                 .accessDeniedHandler(requestAccessDeniedHandler)
-
                 .and()
                 //禁用session，JWT校验不需要session
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-
                 .and()
                 //将TOKEN校验过滤器配置到过滤器链中，否则不生效，放到UsernamePasswordAuthenticationFilter之前
                 .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class)

@@ -7,8 +7,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
 @SpringBootApplication
-@EnableJpaRepositories(basePackages = "com.coderabbit.security.dao")
-@EntityScan("com.coderabbit.security.model")
 public class SecurityDemoApplication {
 
     public static void main(String[] args) {

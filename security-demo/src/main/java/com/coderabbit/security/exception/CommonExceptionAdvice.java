@@ -17,16 +17,7 @@ public class CommonExceptionAdvice {
     @ResponseBody
     public Result UtilExceptionhandler(UtilException e, HttpServletResponse resp){
         e.printStackTrace();
-        resp.setContentType("application/json;charset=UTF-8");
         return Result.error().msg(e.getMsg());
-    }
-
-    @ExceptionHandler(RuntimeException.class)
-    @ResponseBody
-    public Result runtimeExceptionHandler(RuntimeException e, HttpServletResponse resp){
-        e.printStackTrace();
-        resp.setContentType("application/json;charset=UTF-8");
-        return Result.error();
     }
 
 }
