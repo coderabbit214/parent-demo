@@ -35,7 +35,9 @@ public class HelloController {
      * @return
      */
     @GetMapping("/auto")
-    @PreAuthorize("hasAnyAuthority('/auto')")
+    //权限字符串命名规范为：模块:功能:操作，例如：sys:user:edit
+    //使用冒号分隔，对授权资源进行分类，如 sys:user:edit 代表 系统模块:用户功能:编辑操作
+    @PreAuthorize("hasAnyAuthority('sys:test:test')")
     public String auto () {
         return "ok";
     }
