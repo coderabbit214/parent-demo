@@ -47,6 +47,7 @@ public class HelloController {
      * @return
      */
     @GetMapping("/role")
+    //角色前要加：ROLE_
     @PreAuthorize("hasAnyAuthority('ROLE_admin')")
     public String role () {
         return "ok";
