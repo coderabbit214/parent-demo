@@ -1,0 +1,45 @@
+spring:
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: root
+    password: Mm_123456
+  cloud:
+    function:
+      definition: analysePdf;jsh
+    stream:
+      rabbit:
+        bindings:
+          analysePdf-in-0:
+            consumer:
+              destination: analysePdf
+              content-type: application/json
+              #ack模式
+              acknowledge-mode: auto
+              #重试次数
+              max-attempts: 5
+          analysePdf-out-0:
+            producer:
+              destination: analysePdf
+              content-type: application/json
+          jsh-in-0:
+            consumer:
+              destination: jsh
+              content-type: application/json
+          jsh-out-0:
+            producer:
+              destination: jsh
+              content-type: application/json
+      bindings:
+        analysePdf-in-0:
+          group: in
+          destination: analysePdf
+        analysePdf-out-0:
+          destination: analysePdf
+        jsh-in-0:
+          group: in
+          destination: jsh
+        jsh-out-0:
+          destination: jsh
+server:
+  port: 8080
