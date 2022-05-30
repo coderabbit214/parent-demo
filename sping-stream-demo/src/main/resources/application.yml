@@ -15,7 +15,7 @@ spring:
               destination: analysePdf
               content-type: application/json
               #ack模式
-              acknowledge-mode: auto
+              acknowledge-mode: manual
               #重试次数
               max-attempts: 5
           analysePdf-out-0:

@@ -1,7 +1,10 @@
 package com.example.spingstreamdemo.config;
 
+import com.rabbitmq.client.Channel;
+import org.springframework.amqp.support.AmqpHeaders;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Consumer;
@@ -19,9 +22,13 @@ public class Test {
         };
     }
     @Bean("analysePdf")
-    public Consumer<String> analysePdf() {
-        return str -> {
-            System.out.println("analysePdf: " + str);
+    public Consumer<Message<String>> analysePdf() {
+        return message -> {
+            Channel channel = message.getHeaders().get(AmqpHeaders.CHANNEL, Channel.class);
+            Long deliveryTag = message.getHeaders().get(AmqpHeaders.DELIVERY_TAG, Long.class);
+
+            String payload = message.getPayload();
+            System.out.println("analysePdf: " + payload);
 //            throw new RuntimeException();
         };
     }

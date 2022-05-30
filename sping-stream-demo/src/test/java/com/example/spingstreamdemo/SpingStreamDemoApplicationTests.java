@@ -4,6 +4,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.stream.function.StreamBridge;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.support.GenericMessage;
+
+import java.util.Map;
 
 @SpringBootTest
 class SpingStreamDemoApplicationTests {
@@ -18,8 +22,9 @@ class SpingStreamDemoApplicationTests {
 
     public void sendMethod() {
         for (int i = 0; i < 10; i++) {
-            streamBridge.send("analysePdf-out-0", "pdf"+i);
-            streamBridge.send("jsh-out-0", "pdf"+i);
+            Message<String> message = new GenericMessage<>("pdf"+i);
+            streamBridge.send("analysePdf-out-0", message);
+//            streamBridge.send("jsh-out-0", "pdf"+i);
             System.out.println("************发送了message：");
         }
     }
